@@ -25,7 +25,7 @@ namespace Game.Gameplay
             
             var facade = instance.GetComponent<EnemyFacade>();
             
-            var enemy = new Enemy(new TransformMovement(transform, _data.MovementSpeed), instance);
+            var enemy = new Enemy(new TransformMovement(transform, _data.MovementSpeed), instance, _data.Health);
             
             facade.Construct(enemy);
             facade.InitializeView(_data);

@@ -6,10 +6,4 @@ namespace Game.Common
     {
         GameObject GameObject { get; }
     }
-
-    public static class GameObjectContainerExtensions
-    {
-        public static bool IsMe(this IGameObjectOwner owner, GameObject other) =>
-            owner.GameObject.Equals(other);
-    }
 }
