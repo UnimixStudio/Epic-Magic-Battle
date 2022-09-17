@@ -10,9 +10,11 @@ namespace Game.Gameplay
         private readonly GameObject _gameObject;
         private readonly EnemyRegistry _enemyRegistry;
 
-        private float Radius = 15f;
+        private float Radius = 50f;
+        private float lifetTime = 5f;
         private IEnumerable<Enemy> _enemiesInRadius;
         private List<ISpell> _activeSpells = new List<ISpell>();
+        private float _dueTimeDeactivation;
 
         public Tumba(GameObject gameObject, EnemyRegistry enemyRegistry)
         {
@@ -24,10 +26,17 @@ namespace Game.Gameplay
         {
             foreach (ISpell spell in _activeSpells) 
                 spell.Tick();
+            
+            if (_dueTimeDeactivation <= Time.time)
+                Deactivate();
         }
 
         public void Activate()
         {
+            if (_dueTimeDeactivation > Time.time)
+                return;
+
+            _dueTimeDeactivation = Time.time + lifetTime;
             IEnumerable<Enemy> enumerable = _enemyRegistry.Enemies.Where(InRadius);
 
             foreach (Enemy enemy in enumerable)

@@ -36,8 +36,6 @@ namespace Game.Gameplay
             
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 ActivateSpell(2);
-            if (Input.GetKeyUp(KeyCode.Alpha3)) 
-                DeactivateSpell(2);
         }
     }
 }
