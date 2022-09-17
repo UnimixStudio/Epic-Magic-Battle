@@ -30,9 +30,18 @@ namespace Game.Gameplay
                 
                 Enemy enemy = enemyFactories[enemyType].Create();
                 
+                enemy.Dead += EnemyOnDead;
+                
                 _registry.Add(enemy);
             }
         }
+
+        private void EnemyOnDead(IHealthable healthable)
+        {
+            healthable.Dead -= EnemyOnDead;
+            _registry.Remove((Enemy)healthable);
+        }
+
         private EnemyFactory SelectEnemyFactory(EnemyData data) => 
             new EnemyFactory(_spawnData.Prefab, data, _spawnData.FieldSize);
     }
