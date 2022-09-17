@@ -15,10 +15,16 @@ namespace Game.Gameplay
 
         private void ActivateSpell(int spellIndex)
         {
+            if(_selectionManger.Selectable == null)
+                return;
+            
             _spells[spellIndex].Activate(_selectionManger.Selectable);
         }
         private void DeactivateSpell(int spellIndex)
         {
+            if(_selectionManger.Selectable == null)
+                return;
+            
             _spells[spellIndex].Deactivate();
         }
 

@@ -13,6 +13,7 @@ namespace Game.Gameplay
         [SerializeField] private GameObject _player;
         [SerializeField] private GameObject _tumbaPrefab;
         [SerializeField] private EnemySpawnData _enemySpawnData;
+        [SerializeField] private Tumba.Config _tumbaConfig;
 
         private TickableManager _tickableManager;
         private InitializableManager _initializableManager;
@@ -45,7 +46,8 @@ namespace Game.Gameplay
             List<ITickable> tickables,
             EnemyRegistry enemyRegistry)
         {
-            var tumbaFactory = new TumbaFactory(_tumbaPrefab, enemyRegistry);
+            
+            var tumbaFactory = new TumbaFactory(_tumbaPrefab, enemyRegistry, _tumbaConfig);
             
             tickables.Add(tumbaFactory);
 

@@ -559,7 +559,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.56062883, y: -0.0000000071240187, z: 0.000000004823195, w: 0.8280673}
+  m_LocalRotation: {x: 0.56062883, y: 0.0000000071240214, z: -0.000000004823197, w: 0.8280673}
   m_LocalPosition: {x: 0, y: 25.5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -776,7 +776,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180010032}
-  m_LocalRotation: {x: 0.56062883, y: -0.0000000071240187, z: 0.000000004823195, w: 0.8280673}
+  m_LocalRotation: {x: 0.56062883, y: 0.0000000071240214, z: -0.000000004823197, w: 0.8280673}
   m_LocalPosition: {x: 0, y: 25.5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -847,8 +847,7 @@ MonoBehaviour:
 
     2 - Health and pull
 
-    3 - Instantiate Tumb
-    (hold)'
+    3 - Instantiate Tumb'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -983,6 +982,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: dbbfc99b12763f54aa37fcc1f0f8bd82, type: 2}
     - {fileID: 11400000, guid: 8a173757d1f27f54a84630cf40bcc00f, type: 2}
     - {fileID: 11400000, guid: fa07b894187d57b48a5fbe471e286bed, type: 2}
+  _tumbaConfig:
+    Radius: 50
+    LifeTime: 5
+    Damage: 15
+    SpellRate: 1
 --- !u!1 &1893159344
 GameObject:
   m_ObjectHideFlags: 0
