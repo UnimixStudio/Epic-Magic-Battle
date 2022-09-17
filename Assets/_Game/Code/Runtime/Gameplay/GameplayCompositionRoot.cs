@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game.Gameplay
@@ -10,29 +11,46 @@ namespace Game.Gameplay
         [SerializeField] private EnemySpawnData _enemySpawnData;
 
         private TickableManager _tickableManager;
-
-        private List<Enemy> _enemies = new List<Enemy>();
         private InitializableManager _initializableManager;
 
         private void Awake()
         {
-            IMovement playerMovement = new TransformMovement(_player.transform, _speedMovement);
-            IInput playerInput = new KeyboardInput();
+            Player player = SetupPlayer();
 
-            var player = new Player(playerMovement, playerInput);
-
+            var tickables = new List<ITickable>();
+            
             var enemyRegistry = new EnemyRegistry();
-            var selectionManger = new EnemySelectionManger(enemyRegistry);
             var enemySpawner = new EnemySpawner(_enemySpawnData, enemyRegistry);
+            
+            var selectionManger = new EnemySelectionManger(enemyRegistry);
+            
+            var playerSpells = new ISpell[]
+            {
+                new PullSpell(player), 
+                new PushSpell(player)
+            };
+            
+            var spellManager = new SpellManager(selectionManger, playerSpells);
+            
+            tickables.Add(player);
+            tickables.Add(spellManager);
+            tickables.AddRange(playerSpells);
+            
+            _initializableManager = new InitializableManager(enemySpawner, selectionManger);
 
-            var testManger = new PushPullTestManger(enemyRegistry, _player.transform);
-
-            _initializableManager = new InitializableManager(enemySpawner);
-            _tickableManager = new TickableManager(player, testManger);
+            _tickableManager = new TickableManager(tickables.ToArray());
         }
 
         private void Start() => _initializableManager.Initailize();
 
         private void Update() => _tickableManager.Tick();
+
+        private Player SetupPlayer()
+        {
+            IMovement playerMovement = new TransformMovement(_player.transform, _speedMovement);
+            IInput playerInput = new KeyboardInput();
+
+            return new Player(playerMovement, playerInput, _player);
+        }
     }
 }

@@ -21,20 +21,14 @@ namespace Game.Gameplay
         {
             GameObject instance = Object.Instantiate(_prefab, Position, Quaternion.identity);
 
-            
-
             Transform transform = instance.transform;
-
-            SetScale(transform);
-            
-            SetColor(instance);
             
             var facade = instance.GetComponent<EnemyFacade>();
             
             var enemy = new Enemy(new TransformMovement(transform, _data.MovementSpeed), instance);
             
             facade.Construct(enemy);
-            facade.IntializeView();
+            facade.InitializeView(_data);
 
             return enemy;
         }
@@ -50,12 +44,6 @@ namespace Game.Gameplay
                 return new Vector3(x, y, z);
             }
         }
-
-        private void SetColor(GameObject enemy) => 
-            enemy.GetComponent<Renderer>().material.color = _data.Color;
-
-        private void SetScale(Transform transform) => 
-            transform.localScale = _data.Scale;
 
         private static float GetRandomAxisPoint(float size) => 
             Random.Range(-size * 0.5f, size * 0.5f);

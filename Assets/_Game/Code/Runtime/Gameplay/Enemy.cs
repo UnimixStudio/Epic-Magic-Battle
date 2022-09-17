@@ -1,25 +1,29 @@
-﻿
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Game.Gameplay
 {
-    using Common;
-    public class Enemy : IGameObjectContainer, ISelectable
+    public class Enemy : ISelectable
     {
         private readonly IMovement _movement;
-        private readonly GameObject _gameObject;
         private readonly Transform _transform;
-        public event Action<ISelectable> Selected;
 
         public Enemy(IMovement movement, GameObject gameObject)
         {
             _movement = movement;
-            _gameObject = gameObject;
+            GameObject = gameObject;
             _transform = gameObject.transform;
         }
 
-        public GameObject GameObject => _gameObject;
+        public event Action<ISelectable> Selected;
+        
+        public GameObject GameObject { get; }
+
+        public void Select()
+        {
+            Debug.Log($"Enemy Selected {GetHashCode()}", GameObject);
+            Selected?.Invoke(this);
+        }
 
         public void Push(Transform from)
         {
@@ -34,8 +38,5 @@ namespace Game.Gameplay
             direction.y = 0f;
             _movement.Move(direction);
         }
-
-        public void Select() => 
-            Selected?.Invoke(this);
     }
 }

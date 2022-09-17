@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using Game.Common;
+using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public class Player : ITickable
+    public class Player : ITickable, IGameObjectOwner
     {
         private readonly IMovement _movement;
         private readonly IInput _input;
 
-        public Player(IMovement movement, IInput input)
+        public Player(IMovement movement, IInput input, GameObject  gameObject)
         {
             _movement = movement;
             _input = input;
+            GameObject = gameObject;
         }
 
         public void Tick()
@@ -21,5 +23,7 @@ namespace Game.Gameplay
             
             _movement.Move(worldDirection);
         }
+
+        public GameObject GameObject { get; }
     }
 }
